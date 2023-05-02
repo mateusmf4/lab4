@@ -46,7 +46,33 @@ public class MrBet {
         campeonato.adicionarTime(time);
     }
 
-    public boolean isTimeEmCampeonato(String codigo, String campeonato) {
-        return false;
+    public boolean isTimeEmCampeonato(String codigoTime, String codigoCamp) throws IllegalArgumentException {
+        if (!times.containsKey(codigoTime)) {
+            throw new IllegalArgumentException("O TIME NÃO EXISTE!");
+        }
+        Time time = times.get(codigoTime);
+
+        if (!campeonatos.containsKey(codigoCamp.toLowerCase())) {
+            throw new IllegalArgumentException("O CAMPEONATO NÃO EXISTE!");
+        }
+        Campeonato campeonato = campeonatos.get(codigoCamp.toLowerCase());
+
+        return campeonato.contemTime(time);
+    }
+
+    public String mostrarTimeCampeonatos(String codigo) throws IllegalArgumentException {
+        if (!times.containsKey(codigo)) {
+            throw new IllegalArgumentException("TIME NÃO EXISTE!");
+        }
+
+        Time time = times.get(codigo);
+        
+        String resultado = time.getNome() + ":";
+        for (Campeonato camp : campeonatos.values()) {
+            if (camp.contemTime(time)) {
+                resultado += "\n* " + camp.toString();
+            }
+        }
+        return resultado;
     }
 }

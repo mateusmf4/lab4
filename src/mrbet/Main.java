@@ -17,6 +17,14 @@ public class Main {
     private Main() {
         scanner = new Scanner(System.in);
         sistema = new MrBet();
+
+        sistema.incluirTime("250_PB", "Nacional de Patos", "Canário");
+        sistema.incluirTime("210_RN", "Natalense sla", "Lobo");
+
+        sistema.adicionarCampeonato("Brasileirão Série A 2023", 20);
+        sistema.adicionarCampeonato("Josefino", 4);
+
+        sistema.adicionarTimeCampeonato("250_PB", "brasileirão série a 2023");
     }
 
     private void imprimirMenu() {
@@ -48,6 +56,9 @@ public class Main {
                 break;
             case "B":
                 boraIncluirTimeEmCampeonato();
+                break;
+            case "E":
+                exibirCampeonatosDeTime();
                 break;
             case "!":
                 sair();
@@ -121,6 +132,15 @@ public class Main {
                     System.out.println("O TIME NÃO ESTÁ NO CAMPEONATO!");
                 }
             }
+        } catch (IllegalArgumentException err) {
+            System.out.println(err.getMessage());
+        }
+    }
+
+    private void exibirCampeonatosDeTime() {
+        String codigo = lerLinha("Time: ");
+        try {
+            System.out.println("\n" + sistema.mostrarTimeCampeonatos(codigo));
         } catch (IllegalArgumentException err) {
             System.out.println(err.getMessage());
         }

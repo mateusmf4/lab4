@@ -12,7 +12,6 @@ public class Time {
         this.mascote = mascote;
     }
 
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -20,7 +19,6 @@ public class Time {
         result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
         return result;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -43,5 +41,8 @@ public class Time {
     public String toString() {
         return String.format("[%s] %s / %s", codigo, nome, mascote);
     }
-    
+
+    public String getNome() {
+        return nome;
+    }
 }

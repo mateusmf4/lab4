@@ -14,7 +14,7 @@ public class Campeonato {
         times = new HashSet<>();
     }
 
-    void adicionarTime(Time time) throws IllegalArgumentException {
+    public void adicionarTime(Time time) throws IllegalArgumentException {
         if (times.contains(time)) {
             throw new IllegalArgumentException("TIME JÁ ESTÁ NO CAMPEONATO!");
         }
@@ -22,5 +22,14 @@ public class Campeonato {
             throw new IllegalArgumentException("TODOS OS TIMES DESSE CAMPEONATO JÁ FORAM INCLUÍDOS!");
         }
         times.add(time);
+    }
+
+    public boolean contemTime(Time time) {
+        return times.contains(time);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s - %d/%d", nome, times.size(), participantes);
     }
 }

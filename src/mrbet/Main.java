@@ -49,6 +49,12 @@ public class Main {
             case "B":
                 boraIncluirTimeEmCampeonato();
                 break;
+            case "!":
+                sair();
+                break;
+            default:
+                System.out.println("ENTRADA INVALIDA!");
+                break;
         }
         System.out.println();
     }
@@ -70,21 +76,58 @@ public class Main {
         try {
             sistema.incluirTime(codigo, nome, mascote);
         } catch (IllegalArgumentException err) {
-            System.out.println("TIME JÁ EXISTE!");
+            System.out.println(err.getMessage());
             return;
         }
         System.out.println("INCLUSÃO REALIZADA!");
     }
 
-    private void boraIncluirTimeEmCampeonato() {
-        
-    }
-
     private void recuperarTime() {
-
+        String codigo = lerLinha("Código: ");
+        try {
+            String time = sistema.mostrarTime(codigo);
+            System.out.println(time);
+        } catch (IllegalArgumentException err) {
+            System.out.println(err.getMessage());
+        }
     }
 
     private void adicionarCampeonato() {
-        
+        String nome = lerLinha("Campeonato: ");
+        int participantes = lerInt("Participantes: ");
+        try {
+            sistema.adicionarCampeonato(nome, participantes);
+        } catch (IllegalArgumentException err) {
+            System.out.println(err.getMessage());
+            return;
+        }
+        System.out.println("CAMPEONATO ADICIONADO!");
+    }
+
+    private void boraIncluirTimeEmCampeonato() {
+        String opcao = lerLinha("(I) Incluir time em campeonato ou (V) Verificar se time está em campeonato? ");
+
+        String codigo = lerLinha("Código: ");
+        String campeonato = lerLinha("Campeonato: ");
+
+        try {
+            if (opcao.equals("I")) {
+                sistema.adicionarTimeCampeonato(codigo, campeonato);
+                System.out.println("TIME INCLUÍDO NO CAMPEONATO!");
+            } else if (opcao.equals("V")) {
+                if (sistema.isTimeEmCampeonato(codigo, campeonato)) {
+                    System.out.println("O TIME ESTÁ NO CAMPEONATO!");
+                } else {
+                    System.out.println("O TIME NÃO ESTÁ NO CAMPEONATO!");
+                }
+            }
+        } catch (IllegalArgumentException err) {
+            System.out.println(err.getMessage());
+        }
+    }
+
+    private void sair() {
+        System.out.println("Até mais!");
+        System.exit(0);
     }
 }

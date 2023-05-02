@@ -39,6 +39,9 @@ public class Time {
         return true;
     }
 
-        
+    @Override
+    public String toString() {
+        return String.format("[%s] %s / %s", codigo, nome, mascote);
+    }
     
 }

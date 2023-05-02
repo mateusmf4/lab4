@@ -32,4 +32,12 @@ public class Campeonato {
     public String toString() {
         return String.format("%s - %d/%d", nome, times.size(), participantes);
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getParticipantes() {
+        return participantes;
+    }
 }

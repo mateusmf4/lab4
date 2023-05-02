@@ -60,6 +60,9 @@ public class Main {
             case "E":
                 exibirCampeonatosDeTime();
                 break;
+            case "T":
+                tentarSorteStatus();
+                break;
             case "!":
                 sair();
                 break;
@@ -78,6 +81,11 @@ public class Main {
     private String lerLinha(String prompt) {
         System.out.print(prompt);
         return scanner.nextLine();
+    }
+
+    private double lerDouble(String prompt) {
+        System.out.print(prompt);
+        return Double.parseDouble(scanner.nextLine());
     }
 
     private void incluirTime() {
@@ -144,6 +152,33 @@ public class Main {
         } catch (IllegalArgumentException err) {
             System.out.println(err.getMessage());
         }
+    }
+
+    private void tentarSorteStatus() {
+        String opcao = lerLinha("(A)Apostar ou (S)Status das Apostas? ");
+        
+        if (opcao.equals("A")) {
+            adicionarAposta();
+        } else if (opcao.equals("S")) {
+            mostrarApostas();
+        }
+    }
+    
+    private void adicionarAposta() {
+        String codigo = lerLinha("Código: ");
+        String campeonato = lerLinha("Campeonato: ");
+        int colocacao = lerInt("Colocação: ");
+        double valor = lerDouble("Valor: R$ ");
+        try {
+            sistema.adicionarAposta(codigo, campeonato, colocacao, valor);
+            System.out.println("APOSTA REGISTRADA!");  
+        } catch (IllegalArgumentException err) {
+            System.out.println(err.getMessage());
+        }
+    }
+    
+    private void mostrarApostas() {
+        System.out.println(sistema.mostrarApostas());
     }
 
     private void sair() {

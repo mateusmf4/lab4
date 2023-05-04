@@ -2,11 +2,15 @@ package mrbet;
 
 import java.util.HashSet;
 
+/**
+ * Representa um campeonato de times, com um número máximo de participantes.
+ * 
+ * @author Mateus
+ */
 public class Campeonato {
     private String nome;
     private int participantes;
     private HashSet<Time> times;
-
 
     public Campeonato(String nome, int participantes) {
         this.nome = nome;

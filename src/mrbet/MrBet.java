@@ -3,6 +3,12 @@ package mrbet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Representa um sistema de apostas de time em campeonatos,
+ * sendo esse sistema chamdo de Mr.Bet
+ * 
+ * @author Mateus
+ */
 public class MrBet {
     private HashMap<String, Time> times;
     private HashMap<String, Campeonato> campeonatos;

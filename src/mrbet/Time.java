@@ -1,10 +1,14 @@
 package mrbet;
 
+/**
+ * Representa um time com um codigo, nome e mascote.
+ * 
+ * @author Mateus
+ */
 public class Time {
     private String codigo;
     private String nome;
     private String mascote;
-
 
     public Time(String identificador, String nome, String mascote) {
         this.codigo = identificador;

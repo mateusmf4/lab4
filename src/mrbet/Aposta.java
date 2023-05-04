@@ -4,12 +4,20 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
+/**
+ * Representa uma aposta.
+ * 
+ * @author Mateus
+ */
 public class Aposta {
     private Time time;
     private Campeonato campeonato;
     private int colocacao;
     private double valor;
 
+    /**
+     * Cria uma aposta.
+     */
     public Aposta(Time time, Campeonato campeonato, int colocacao, double valor) {
         this.time = time;
         this.campeonato = campeonato;

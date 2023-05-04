@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 /**
  * Representa um sistema de apostas de time em campeonatos,
- * sendo esse sistema chamdo de Mr.Bet
+ * sendo esse sistema chamdo de MrBet
  * 
  * @author Mateus
  */
@@ -35,6 +35,14 @@ public class MrBet {
         return campeonatos.get(codigo);
     }
 
+    /**
+     * Adiciona um time no sistema do MrBet.
+     * 
+     * @param codigo Código único do time
+     * @param nome Nome do time
+     * @param mascote Mascote do time
+     * @throws IllegalArgumentException Se o time já existe no sistema.
+     */
     public void incluirTime(String codigo, String nome, String mascote) throws IllegalArgumentException {
         if (times.containsKey(codigo)) {
             throw new IllegalArgumentException("TIME JÁ EXISTE!");
@@ -42,10 +50,23 @@ public class MrBet {
         times.put(codigo, new Time(codigo, nome, mascote));
     }
 
+    /**
+     * Mostra a representação de um time como string.
+     * 
+     * @param codigo Código do time
+     * @return A representação. 
+     */
     public String mostrarTime(String codigo) {
         return pegarTime(codigo).toString();
     }
 
+    /**
+     * Adiciona um campeonato no sistema do MrBet.
+     * 
+     * @param nome Nome do campeonato
+     * @param participantes Número de participantes do campeonato
+     * @throws IllegalArgumentException Se um campeonato com o mesmo nome já existe no sistema.
+     */
     public void adicionarCampeonato(String nome, int participantes) throws IllegalArgumentException {
         if (campeonatos.containsKey(nome.toLowerCase())) {
             throw new IllegalArgumentException("CAMPEONATO JÁ EXISTE!");
@@ -53,22 +74,44 @@ public class MrBet {
         campeonatos.put(nome.toLowerCase(), new Campeonato(nome, participantes));
     }
 
-    public void adicionarTimeCampeonato(String codigoTime, String codigoCamp) throws IllegalArgumentException {
+    /**
+     * Adiciona um time em um campeonato do sistema.
+     * 
+     * @param codigoTime Código do time
+     * @param nomeCamp Nome do campeonato
+     * @throws IllegalArgumentException Se o time ou o campeonato não existem no sistema.
+     */
+    public void adicionarTimeCampeonato(String codigoTime, String nomeCamp) throws IllegalArgumentException {
         Time time = pegarTime(codigoTime);
-        Campeonato campeonato = pegarCampeonato(codigoCamp);
+        Campeonato campeonato = pegarCampeonato(nomeCamp);
 
         campeonato.adicionarTime(time);
     }
 
-    public boolean isTimeEmCampeonato(String codigoTime, String codigoCamp) throws IllegalArgumentException {
+    /**
+     * Verifica se um time está em um campeonato.
+     * 
+     * @param codigoTime Código do time
+     * @param nomeCamp Nome do campeonato
+     * @return True se tiver, false se não
+     * @throws IllegalArgumentException Se o time ou o campeonato não existem no sistema.
+     */
+    public boolean isTimeEmCampeonato(String codigoTime, String nomeCamp) throws IllegalArgumentException {
         Time time = pegarTime(codigoTime);
-        Campeonato campeonato = pegarCampeonato(codigoCamp);
+        Campeonato campeonato = pegarCampeonato(nomeCamp);
 
         return campeonato.contemTime(time);
     }
 
-    public String mostrarTimeCampeonatos(String codigo) throws IllegalArgumentException {
-        Time time = pegarTime(codigo);
+    /**
+     * Retorna uma string com todos os times em um campeonato.
+     * 
+     * @param nomeCamp Nome do campeonato
+     * @return A string com todos os times.
+     * @throws IllegalArgumentException Se o campeonato não existe no sistema.
+     */
+    public String mostrarTimeCampeonatos(String nomeCamp) throws IllegalArgumentException {
+        Time time = pegarTime(nomeCamp);
         
         String resultado = time.getNome() + ":";
         for (Campeonato camp : campeonatos.values()) {
@@ -79,15 +122,28 @@ public class MrBet {
         return resultado;
     }
 
-    public void adicionarAposta(String codigoTime, String codigoCamp, int colocacao, double valor) {
+    /**
+     * Adiciona uma aposta no sistema.
+     * 
+     * @param codigoTime Código do time
+     * @param nomeCamp Nome do campeonato
+     * @param colocacao Colocação do time
+     * @param valor Valor em reais da aposta
+     */
+    public void adicionarAposta(String codigoTime, String nomeCamp, int colocacao, double valor) {
         Time time = pegarTime(codigoTime);
-        Campeonato camp = pegarCampeonato(codigoCamp);
+        Campeonato camp = pegarCampeonato(nomeCamp);
         if (colocacao > camp.getParticipantes()) {
             throw new IllegalArgumentException("COLOCAÇÃO INVÁLIDA!");
         }
         apostas.add(new Aposta(time, camp, colocacao, valor));
     }
 
+    /**
+     * Retorna todas as apostas do sistema.
+     * 
+     * @return A string.
+     */
     public String mostrarApostas() {
         String resultado = "Apostas:";
         for (int i = 0; i < apostas.size(); ++i) {

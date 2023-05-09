@@ -36,6 +36,7 @@ public class Main {
             "(E)Exibir campeonatos que o time participa\n" +
             "(T)Tentar a sorte e status\n" +
             "(!)Já pode fechar o programa!\n" +
+            "(H)Histórico\n" +
             "\n" +
             "Opção> "
         );
@@ -65,6 +66,9 @@ public class Main {
                 break;
             case "!":
                 sair();
+                break;
+            case "H":
+                mostrarHistorico();
                 break;
             default:
                 System.out.println("ENTRADA INVALIDA!");
@@ -179,6 +183,10 @@ public class Main {
     
     private void mostrarApostas() {
         System.out.println(sistema.mostrarApostas());
+    }
+
+    private void mostrarHistorico() {
+        System.out.println(sistema.mostrarHistorico());
     }
 
     private void sair() {

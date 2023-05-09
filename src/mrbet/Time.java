@@ -52,4 +52,8 @@ public class Time {
     public String getNome() {
         return nome;
     }
+
+    public String getCodigo() {
+        return codigo;
+    }
 }

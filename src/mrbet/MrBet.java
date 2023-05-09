@@ -145,4 +145,64 @@ public class MrBet {
         }
         return resultado;
     }
+
+    /**
+     * Retorna historico de apostas do sistema.
+     * 
+     * @return A string.
+     */
+    public String mostrarHistorico() {
+        String resultado = "Participação mais frequente em campeonatos\n";
+
+        ArrayList<Time> timesMaiores = new ArrayList<>();
+        ArrayList<Time> timesNenhum = new ArrayList<>();
+        int maior = -1;
+
+        for (Time time : times.values()) {
+            int contagem = 0;
+            for (Campeonato camp : campeonatos.values()) {
+                if (camp.contemTime(time)) {
+                    contagem++;
+                }
+            }
+            if (contagem != 0) {
+                if (contagem > maior) {
+                    maior = contagem;
+                    timesMaiores.clear();
+                }
+                if (contagem == maior) {
+                    timesMaiores.add(time);
+                }
+            } else {
+                timesNenhum.add(time);
+            }
+        }
+
+        for (Time time : timesMaiores) {
+            resultado += time.toString() + "\n";
+        }
+
+        resultado += "\nAinda não participou de campeonato\n";
+        for (Time time : timesNenhum) {
+            resultado += time.toString() + "\n";
+        }
+
+        HashMap<Time, Integer> timesPopulares = new HashMap<>();
+
+        resultado += "\nPopularidade em apostas\n";
+        for (Aposta aposta : apostas) {
+            if (aposta.getColocacao() == 1) {
+                if (timesPopulares.containsKey(aposta.getTime())) {
+                    timesPopulares.put(aposta.getTime(), timesPopulares.get(aposta.getTime()) + 1);
+                } else {
+                    timesPopulares.put(aposta.getTime(), 1);
+                }
+            }
+        }
+        for (Time time : timesPopulares.keySet()) {
+            resultado += time.getNome() + " / " + timesPopulares.get(time) + "\n";
+        }
+        
+        return resultado;
+    }
 }

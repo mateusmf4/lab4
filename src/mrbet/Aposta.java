@@ -42,4 +42,12 @@ public class Aposta {
             num
         );
     }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public int getColocacao() {
+        return colocacao;
+    }
 }

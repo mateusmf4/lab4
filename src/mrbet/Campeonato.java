@@ -19,9 +19,6 @@ public class Campeonato {
     }
 
     public void adicionarTime(Time time) throws IllegalArgumentException {
-        if (times.contains(time)) {
-            throw new IllegalArgumentException("TIME JÁ ESTÁ NO CAMPEONATO!");
-        }
         if (times.size() >= participantes) {
             throw new IllegalArgumentException("TODOS OS TIMES DESSE CAMPEONATO JÁ FORAM INCLUÍDOS!");
         }

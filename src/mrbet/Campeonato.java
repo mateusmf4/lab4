@@ -18,13 +18,25 @@ public class Campeonato {
         times = new HashSet<>();
     }
 
+    /**
+     * Adiciona um time no campeonato.
+     * 
+     * @param time Time a ser adicionado
+     * @throws IllegalArgumentException Se o numero de participantes do time está cheio
+     */
     public void adicionarTime(Time time) throws IllegalArgumentException {
+        if (times.contains(time)) return;
         if (times.size() >= participantes) {
             throw new IllegalArgumentException("TODOS OS TIMES DESSE CAMPEONATO JÁ FORAM INCLUÍDOS!");
         }
         times.add(time);
     }
 
+    /**
+     * Verifica se um time está no campeonato
+     * @param time Time a ser verificado
+     * @return Se o time está no campeonato.
+     */
     public boolean contemTime(Time time) {
         return times.contains(time);
     }

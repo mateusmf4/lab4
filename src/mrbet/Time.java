@@ -10,6 +10,9 @@ public class Time {
     private String nome;
     private String mascote;
 
+    /**
+     * Cria um time com um código identificador, nome e mascote.
+     */
     public Time(String identificador, String nome, String mascote) {
         this.codigo = identificador;
         this.nome = nome;

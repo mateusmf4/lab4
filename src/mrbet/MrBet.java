@@ -10,15 +10,9 @@ import java.util.HashMap;
  * @author Mateus
  */
 public class MrBet {
-    private HashMap<String, Time> times;
-    private HashMap<String, Campeonato> campeonatos;
-    private ArrayList<Aposta> apostas;
-
-    public MrBet() {
-        times = new HashMap<>();
-        campeonatos = new HashMap<>();
-        apostas = new ArrayList<>();
-    }
+    private HashMap<String, Time> times = new HashMap<>();
+    private HashMap<String, Campeonato> campeonatos = new HashMap<>();
+    private ArrayList<Aposta> apostas = new ArrayList<>();
 
     private Time pegarTime(String codigo) throws IllegalArgumentException {
         if (!times.containsKey(codigo)) {

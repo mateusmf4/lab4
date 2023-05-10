@@ -127,7 +127,7 @@ public class MrBet {
     public void adicionarAposta(String codigoTime, String nomeCamp, int colocacao, double valor) {
         Time time = pegarTime(codigoTime);
         Campeonato camp = pegarCampeonato(nomeCamp);
-        if (colocacao > camp.getParticipantes()) {
+        if (colocacao < 1 || colocacao > camp.getParticipantes()) {
             throw new IllegalArgumentException("COLOCAÇÃO INVÁLIDA!");
         }
         apostas.add(new Aposta(time, camp, colocacao, valor));

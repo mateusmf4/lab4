@@ -10,7 +10,11 @@ public class Main {
         Main inst = new Main();
         while (true) {
             inst.imprimirMenu();
-            inst.pegarOpcao();
+            try {
+                inst.pegarOpcao();
+            } catch (IllegalArgumentException err) {
+                System.out.println(err.getMessage() + "\n");
+            }
         }
     }
 
@@ -29,13 +33,12 @@ public class Main {
             "(T)Tentar a sorte e status\n" +
             "(!)Já pode fechar o programa!\n" +
             "(H)Histórico\n" +
-            "\n" +
-            "Opção> "
+            "\n"
         );
     }
 
     private void pegarOpcao() {
-        String opcao = scanner.nextLine();
+        String opcao = lerLinha("Opção> ").toUpperCase();
 
         switch (opcao) {
             case "M":
@@ -71,83 +74,79 @@ public class Main {
 
     private int lerInt(String prompt) {
         System.out.print(prompt);
-        return Integer.parseInt(scanner.nextLine());
+        String line = scanner.nextLine();
+        if (line.isBlank())
+            throw new IllegalArgumentException("ENTRADA VAZIA!");
+        return Integer.parseInt(line);
     }
 
     private String lerLinha(String prompt) {
         System.out.print(prompt);
-        return scanner.nextLine();
+        String line = scanner.nextLine();
+        if (line.isBlank())
+            throw new IllegalArgumentException("ENTRADA VAZIA!");
+        return line;
     }
 
     private double lerDouble(String prompt) {
         System.out.print(prompt);
-        return Double.parseDouble(scanner.nextLine());
+        String line = scanner.nextLine();
+        if (line.isBlank())
+            throw new IllegalArgumentException("ENTRADA VAZIA!");
+        return Double.parseDouble(line);
     }
 
     private void incluirTime() {
         String codigo = lerLinha("Código: ");
         String nome = lerLinha("Nome: ");
         String mascote = lerLinha("Mascote: ");
-        try {
-            sistema.incluirTime(codigo, nome, mascote);
-        } catch (IllegalArgumentException err) {
-            System.out.println(err.getMessage());
-            return;
-        }
+
+        sistema.incluirTime(codigo, nome, mascote);
         System.out.println("INCLUSÃO REALIZADA!");
     }
 
     private void recuperarTime() {
         String codigo = lerLinha("Código: ");
-        try {
-            String time = sistema.mostrarTime(codigo);
-            System.out.println(time);
-        } catch (IllegalArgumentException err) {
-            System.out.println(err.getMessage());
-        }
+
+        String time = sistema.mostrarTime(codigo);
+        System.out.println(time);
     }
 
     private void adicionarCampeonato() {
         String nome = lerLinha("Campeonato: ");
         int participantes = lerInt("Participantes: ");
-        try {
-            sistema.adicionarCampeonato(nome, participantes);
-        } catch (IllegalArgumentException err) {
-            System.out.println(err.getMessage());
-            return;
-        }
+
+        sistema.adicionarCampeonato(nome, participantes);
         System.out.println("CAMPEONATO ADICIONADO!");
     }
 
     private void boraIncluirTimeEmCampeonato() {
         String opcao = lerLinha("(I) Incluir time em campeonato ou (V) Verificar se time está em campeonato? ");
 
+        if (!opcao.equals("I") && !opcao.equals("V")) {
+            System.out.println("OPÇÃO INVALIDA!");
+            return;
+        }
+
         String codigo = lerLinha("Código: ");
         String campeonato = lerLinha("Campeonato: ");
 
-        try {
-            if (opcao.equals("I")) {
-                sistema.adicionarTimeCampeonato(codigo, campeonato);
-                System.out.println("TIME INCLUÍDO NO CAMPEONATO!");
-            } else if (opcao.equals("V")) {
-                if (sistema.isTimeEmCampeonato(codigo, campeonato)) {
-                    System.out.println("O TIME ESTÁ NO CAMPEONATO!");
-                } else {
-                    System.out.println("O TIME NÃO ESTÁ NO CAMPEONATO!");
-                }
+        if (opcao.equals("I")) {
+            sistema.adicionarTimeCampeonato(codigo, campeonato);
+            System.out.println("TIME INCLUÍDO NO CAMPEONATO!");
+        } else if (opcao.equals("V")) {
+            if (sistema.isTimeEmCampeonato(codigo, campeonato)) {
+                System.out.println("O TIME ESTÁ NO CAMPEONATO!");
+            } else {
+                System.out.println("O TIME NÃO ESTÁ NO CAMPEONATO!");
             }
-        } catch (IllegalArgumentException err) {
-            System.out.println(err.getMessage());
         }
     }
 
     private void exibirCampeonatosDeTime() {
         String codigo = lerLinha("Time: ");
-        try {
-            System.out.println("\n" + sistema.mostrarTimeCampeonatos(codigo));
-        } catch (IllegalArgumentException err) {
-            System.out.println(err.getMessage());
-        }
+
+        System.out.println("\n" + sistema.mostrarTimeCampeonatos(codigo));
     }
 
     private void tentarSorteStatus() {
@@ -157,6 +156,8 @@ public class Main {
             adicionarAposta();
         } else if (opcao.equals("S")) {
             mostrarApostas();
+        } else {
+            System.out.println("OPÇÃO INVALIDA!");
         }
     }
     
@@ -165,12 +166,9 @@ public class Main {
         String campeonato = lerLinha("Campeonato: ");
         int colocacao = lerInt("Colocação: ");
         double valor = lerDouble("Valor: R$ ");
-        try {
-            sistema.adicionarAposta(codigo, campeonato, colocacao, valor);
-            System.out.println("APOSTA REGISTRADA!");  
-        } catch (IllegalArgumentException err) {
-            System.out.println(err.getMessage());
-        }
+
+        sistema.adicionarAposta(codigo, campeonato, colocacao, valor);
+        System.out.println("APOSTA REGISTRADA!");  
     }
     
     private void mostrarApostas() {

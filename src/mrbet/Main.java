@@ -17,14 +17,6 @@ public class Main {
     private Main() {
         scanner = new Scanner(System.in);
         sistema = new MrBet();
-
-        sistema.incluirTime("250_PB", "Nacional de Patos", "Canário");
-        sistema.incluirTime("210_RN", "Natalense sla", "Lobo");
-
-        sistema.adicionarCampeonato("Brasileirão Série A 2023", 20);
-        sistema.adicionarCampeonato("Josefino", 4);
-
-        sistema.adicionarTimeCampeonato("250_PB", "brasileirão série a 2023");
     }
 
     private void imprimirMenu() {

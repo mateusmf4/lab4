@@ -3,6 +3,8 @@ package mrbet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Locale;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +29,8 @@ public class MrBetApostasTest {
         sistema.adicionarTimeCampeonato("252_PB", "Nordestão");
         
         sistema.adicionarTimeCampeonato("002_RJ", "Brasileirão");
+
+        Locale.setDefault(new Locale("en", "US"));
     }
 
     @Test
